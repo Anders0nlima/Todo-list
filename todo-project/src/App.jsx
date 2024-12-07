@@ -5,22 +5,35 @@ import TodoItem from './components/TodoItem';
 function App() {
   const [todos, setTodos] = useState([]);
 
-  // Função para adicionar uma nova tarefa
   const addTodo = (text) => {
+    if (!text) {
+      alert('A tarefa não pode ser vazia!');
+      return;
+    }
     const newTodo = { id: Date.now(), text, completed: false };
-    setTodos([...todos, newTodo]);
+    setTodos((prevTodos) => [...prevTodos, newTodo]);
   };
 
-  // Função para remover uma tarefa
   const removeTodo = (id) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
+    setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
   };
 
-  // Função para alternar entre concluído e não concluído
   const toggleTodo = (id) => {
-    setTodos(
-      todos.map((todo) =>
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) =>
         todo.id === id ? { ...todo, completed: !todo.completed } : todo
+      )
+    );
+  };
+
+  const editTodo = (id, newText) => {
+    if (!newText) {
+      alert('O texto da tarefa não pode ser vazio!');
+      return;
+    }
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) =>
+        todo.id === id ? { ...todo, text: newText } : todo
       )
     );
   };
@@ -36,6 +49,7 @@ function App() {
             todo={todo}
             toggleTodo={toggleTodo}
             removeTodo={removeTodo}
+            editTodo={editTodo}
           />
         ))}
       </ul>

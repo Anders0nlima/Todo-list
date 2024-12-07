@@ -5,7 +5,6 @@ function TodoForm({ addTodo }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!text) return alert('Insira uma tarefa');
     addTodo(text);
     setText('');
   };
@@ -14,7 +13,7 @@ function TodoForm({ addTodo }) {
     <form onSubmit={handleSubmit}>
       <input
         type="text"
-        placeholder="Digite uma tarefa"
+        placeholder="Adicione uma tarefa"
         value={text}
         onChange={(e) => setText(e.target.value)}
       />
